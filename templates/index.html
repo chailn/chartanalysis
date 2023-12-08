@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>庫格分析圖</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+
+        .upload-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .upload-btn:hover {
+            background-color: #45a049;
+        }
+
+        .plot-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .plot-container img {
+            max-width: 100%;
+            height: auto;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        .example-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .example-link a {
+            color: #333;
+            text-decoration: none;
+        }
+
+        .example-link a:hover {
+            text-decoration: underline;
+        }
+
+        .note {
+            color: #777;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>上傳 Excel</h1>
+    <form method="post" enctype="multipart/form-data">
+        <input type="file" name="file">
+        <input class="upload-btn" type="submit" value="上傳">
+    </form>
+    
+    <div class="plot-container">
+        <!-- 显示错误 -->
+        {% if error %}
+            <p style="color: red;">{{ error }}</p>
+        {% endif %}
+        
+        <!-- 显示图表 -->
+        {% if plot_url %}
+            <img src="data:image/png;base64,{{ plot_url }}" alt="3D Scatter Plot">
+        {% endif %}
+    </div>
+
+    <div class="example-link">
+        <p><a href="/download_example">Excel 範例檔</a><span  style="color: red;"> ←← 請依照範例檔的格式</span></p>
+    </div>
+
+    <div class="note">
+        <p>越接近黃色表示權重越高，越接近深紫色權重越低</p>
+        <p>RR是列，BB是深，LL是高，WEIGHT是權重</p>
+    </div>
+</body>
+</html>
